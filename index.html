@@ -1,8 +1,16 @@
+name=index.html url=https://github.com/sunilraghav634-del/Shock-roulette-/blob/main/index.html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#121212">
+    <meta name="description" content="A fun multiplayer party game - Shock Roulette!">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Shock Roulette">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%23ffeb3b' width='192' height='192' rx='40'/><text x='96' y='96' font-size='120' text-anchor='middle' dominant-baseline='central'>⚡</text></svg>">
     <title>Shock Roulette</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -23,13 +31,35 @@
 
         <div id="game-screen" class="hidden">
             <p id="status-text">Everyone, place your finger on the screen!</p>
-            <div id="player-container">
-                </div>
+            <div id="player-container"></div>
             <button id="trigger-btn">Start Countdown</button>
             <button id="reset-btn" class="hidden">Play Again</button>
         </div>
     </div>
 
     <script src="script.js"></script>
+    
+    <script>
+        // Register Service Worker for offline support and PWA features
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('service-worker.js')
+                    .then(registration => {
+                        console.log('✓ Service Worker registered:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.warn('✗ Service Worker registration failed:', error);
+                    });
+            });
+        }
+
+        // PWA Install Prompt
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            console.log('Install prompt ready');
+        });
+    </script>
 </body>
 </html>
